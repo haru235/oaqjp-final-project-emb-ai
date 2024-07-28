@@ -16,11 +16,10 @@ def emotion_detector(text_to_analyse):
     # Extract emotions
     if response.status_code == 200:
         emotions = formatted_response['emotionPredictions'][0]['emotion']
+        # Find the dominant emotion
+        emotions['dominant_emotion'] = max(zip(emotions.values(), emotions.keys()))[1]
     else:
         emotions = None
-
-    # Find the dominant emotion
-    emotions['dominant_emotion'] = max(zip(emotions.values(), emotions.keys()))[1]
 
     # Return the text attribute of the response
     return emotions
